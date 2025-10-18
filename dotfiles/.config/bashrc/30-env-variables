@@ -1,0 +1,176 @@
+#!/bin/bash
+
+# -----------------------------------------------------
+# Bash
+# -----------------------------------------------------
+# Don't include consecutive duplicate commands or commands starting with a space in ~/.bash_history
+## https://unix.stackexchange.com/questions/48713/how-can-i-remove-duplicates-in-my-bash-history-preserving-order
+export HISTCONTROL=ignorespace:ignoredups:erasedups
+
+
+
+
+
+# -----------------------------------------------------
+# Hardware Acceleration
+# -----------------------------------------------------
+# Enable multi-threaded OpenGL rendering in Mesa
+if ! -z "$MESA_VK_DEVICE_SELECT"; then
+  export mesa_glthread=true
+fi
+
+
+
+
+# -----------------------------------------------------
+# Hardware Acceleration - VA-API
+# -----------------------------------------------------
+# Enable MPEG4 for VA-API
+## https://docs.mesa3d.org/envvars.html#va-api-environment-variables
+export VAAPI_MPEG4_ENABLED=true
+
+
+
+
+
+# -----------------------------------------------------
+# Vulkan
+# -----------------------------------------------------
+# Enabling Vulkan Video support with Intel iGPU
+## https://wiki.archlinux.org/title/Hardware_video_acceleration#Configuring_Vulkan_Video
+export ANV_VIDEO_DECODE=1
+
+
+
+
+
+# -----------------------------------------------------
+# User
+# -----------------------------------------------------
+# Defining XDG directories according to: https://specifications.freedesktop.org/basedir-spec/latest/#variables
+export XDG_CACHE_HOME="$HOME/.cache"
+
+add_config_dirs() {
+  XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS:-}"
+
+  for d in "$@"; do
+    if [[ -d "$d" ]]; then
+      case ":$XDG_CONFIG_DIRS:" in
+        *":$d:"*) ;;
+        *) XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS:$d" ;;
+      esac
+    fi
+  done
+}
+add_config_dirs "/etc/xdg"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+
+add_data_dirs() {
+  XDG_DATA_DIRS="${XDG_DATA_DIRS:-}"
+
+  for d in "$@"; do
+    if [[ -d "$d" ]]; then
+      case ":$XDG_DATA_DIRS:" in
+        *":$d:"*) ;;
+        *) XDG_DATA_DIRS="$XDG_DATA_DIRS:$d" ;;
+      esac
+    fi
+  done
+}
+#add_data_dirs "/whatever/you/want"
+
+export XDG_DATA_HOME="$HOME/.local/share"
+
+if [[ -z $XDG_RUNTIME_DIR ]]; then
+  export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+fi
+
+export XDG_STATE_HOME="$HOME/.local/state"
+
+
+
+
+
+# -----------------------------------------------------
+# Applications
+# -----------------------------------------------------
+# Defining the default manual viewer
+## Suggestion by Mental Outlaw: https://www.youtube.com/watch?v=Dg2Lek-xN70&t=135s
+export MANPAGER="nvim +Man!"
+
+# Display a stack trace when a Rust program encounters an error
+export RUST_BACKTRACE=full
+
+
+
+
+
+# -----------------------------------------------------
+# X11
+# -----------------------------------------------------
+
+# Setting default cursor theme for X11 (https://wiki.archlinux.org/title/Cursor_themes#Qt)
+# Save the cursor themes inside this folder and choose your theme by editing the variables below
+if [[ -z "$XCURSOR_PATH" ]]; then
+    export XCURSOR_PATH="$HOME/.local/share/icons"
+fi
+
+
+# Define the mouse cursor used in X11
+if [[ "$XDG_SESSION_TYPE" == "x11" ]]; then
+    export XCURSOR_THEME=Bibata-Modern-Ice
+    export XCURSOR_SIZE=32
+fi
+
+
+
+
+
+# -----------------------------------------------------
+# Wayland
+# -----------------------------------------------------
+
+# Setting the default path where cursors are stored (https://wiki.archlinux.org/title/Cursor_themes#Qt)
+if [[ -z "$XCURSOR_PATH" ]]; then
+    export XCURSOR_PATH="$HOME/.local/share/icons"
+fi
+
+
+# Define the mouse cursor theme used in Wayland; the cursor theme must be saved inside ~/.local/share/icons
+if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+    export XCURSOR_THEME=Bibata-Modern-Ice
+    export XCURSOR_SIZE=32
+fi
+
+
+# Uncomment this if your cursor doesn't appear on your screen when using Wayland. Note: not a guaranteed fix
+## https://wiki.archlinux.org/title/Sway#No_visible_cursor
+#export WLR_NO_HARDWARE_CURSORS=1
+
+
+
+
+
+# -----------------------------------------------------
+# PATH
+# -----------------------------------------------------
+
+# Function to add directories to the PATH variable
+# Original idea sourced from: https://wiki.archlinux.org/title/Environment_variables#Using_shell_initialization_files
+
+add_paths() {
+  PATH="${PATH:-}"
+
+  for d in "$@"; do
+    if [[ -d "$d" ]]; then
+      case ":$PATH:" in
+        *":$d:"*) ;;
+        *) PATH="$PATH:$d" ;;
+      esac
+    fi
+  done
+}
+
+# Call the function with the directories one wishes to add to $PATH
+add_paths "$HOME/.local/bin"

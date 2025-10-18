@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+wayland=(
+    "wayland"
+    "wayland-protocols"
+    "xorg-xwayland"
+    "uwsm"
+    "qt6-wayland"
+    "waypaper"
+    "swaync"
+)
+
+fonts=(
+    "ttf-firacode-nerd"
+    "otf-bebas-neue-git"
+    "ttf-material-symbols-variable-git"
+    "otf-font-awesome"
+    "ttf-input-nerd"
+)
+
+network=(
+    "networkmanager"
+    "nm-connection-editor"
+    "network-manager-applet"
+)
+
+python=(
+    "python"
+    "python-pip"
+    "python-pipx"
+    "python-gobject"
+    "python-screeninfo"
+)
+
+general=(
+    "flatpak"
+    "curl"
+    "git"
+    "rsync"
+    "7zip"
+    "unzip"
+    "unarchiver"
+    "jq"
+    "neovim"
+    "inotify-tools"
+    "libnotify"
+    "matugen-bin"
+    "pacman-contrib"
+)
+
+hyprland=(
+    "hyprland"
+    "hyprpaper"
+    "hyprland-qt-support"
+    "hyprlock"
+    "hypridle"
+    "hyprpicker"
+    "hyprpolkitagent"
+    "hyprsunset"
+    "xdg-desktop-portal-hyprland"
+    "hyprshade"
+)
+
+apps=(
+    "alacritty"
+    "wlogout"
+    "nwg-dock-hyprland"
+    "waybar"
+    "rofi"
+    "nwg-look"
+    "pavucontrol"
+    "neovim"
+    "qt6ct"
+    "gwenview"
+    "okular"
+    "imagemagick"
+    "qt6-imageformats"
+    "kimageformats"
+    "obs-studio"
+)
+
+bluetooth=(
+    "bluez"
+    "bluez-tools"
+    "bluez-utils"
+    "blueman"
+    "qt6-connectivity"
+)
+
+multimedia=(
+    "ffmpeg"
+    "qt6-multimedia-ffmpeg"
+    "vlc"
+    "vlc-plugin-ffmpeg"
+)
+
+filemanager=(
+    "dolphin"
+    "ark"
+    "ffmpegthumbs"
+    "ffmpegthumbnailer"
+    "kde-cli-tools"
+    "kdegraphics-thumbnailers"
+    "kompare"
+)
+
+tools=(
+    "archlinux-xdg-menu"
+    "xdg-user-dirs"
+    "xdg-desktop-portal-kde"
+    "figlet"
+    "fastfetch"
+    "btop"
+    "xclip"
+    "fzf"
+    "brightnessctl"
+    "tumbler"
+    "spectacle"
+    "cliphist"
+    "gvfs"
+    "breeze"
+    "eza"
+    "ocean-sound-theme"
+    "oxygen"
+    "tealdeer"
+    "kwallet"
+    "kwallet-pam"
+    "kwalletmanager"
+)

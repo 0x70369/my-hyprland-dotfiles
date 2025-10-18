@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Background tldr update if the command exists and network is up
+# Remember to install an implementation of tldr (e.g. tealdeer ---> Suggestion by Mental Outlaw: https://www.youtube.com/watch?v=Dg2Lek-xN70&t=234s)
+
+if command -v tldr > /dev/null 2>&1; then
+    (
+        # Wait until the computer has access to the internet
+        retries=60
+        while ! ping -q -c 1 -W 1 archlinux.org >/dev/null 2>&1; do
+            sleep 1
+            # Give up if failed for 60 seconds
+            ((retries--)) || exit
+        done
+        # Once online, update tldr cache silently
+        sleep 1
+        tldr --update > /dev/null 2>&1
+    ) & disown
+fi

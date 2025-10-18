@@ -1,0 +1,176 @@
+#!/bin/bash
+
+# -----------------------------------------------------
+# General
+# -----------------------------------------------------
+alias c='clear'
+alias e='exit'
+
+alias nf='fastfetch'
+alias pf='fastfetch'
+alias ff='fastfetch'
+
+alias ls='eza -a --icons=always --colour=always'
+alias ll='eza -al --icons=always --colour=always'
+alias llZ='eza -alZ --icons=always --colour=always'
+alias lt1='eza -aT --level=1 --icons=always --colour=always'
+alias lt2='eza -aT --level=2 --icons=always --colour=always'
+alias lt3='eza -aT --level=3 --icons=always --colour=always'
+
+# Text editors
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
+alias n="nano"
+
+# dir and grep aliases
+alias dir="dir --color=auto"
+alias vdir="vdir --color=auto"
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+# Make tldr always display color
+alias tldr="tldr --color=always"
+
+# Make cp always interactive (if a file will be overwritten by cp, it'll for the user's permission)
+alias cp='cp -i'
+
+# Make rm ask for the user's permission if running recursively (-r, -R, --recursive) or if more than 3 files will be deleted by the command
+alias rm='rm -I'
+
+
+
+
+# -----------------------------------------------------
+# Network
+# -----------------------------------------------------
+alias wifi='nmtui'
+alias test-internet="ping -c 7 www.archlinux.org"
+alias reload-network="sudo systemctl restart NetworkManager.service"
+
+
+
+
+
+# -----------------------------------------------------
+# System
+# -----------------------------------------------------
+# Initramfs aliases
+alias edit-mkinitcpio="sudo nano /etc/mkinitcpio.conf"
+alias rebuild-kernel="sudo mkinitcpio -P"
+
+# System upgrade alias
+alias upgrade-system='sudo pacman -Syu; printf "%s" ""; sudo flatpak upgrade; printf "%s" ""; yay -Syu; printf "%s" ""; pipx upgrade-all; sudo sync'
+
+# Fstab alias
+alias edit-fstab="sudo nano /etc/fstab"
+
+# Pacman aliases
+alias edit-pacman="sudo nano /etc/pacman.conf"
+alias check-pacmanmirrorlist='echo; bat /etc/pacman.d/mirrorlist; printf "%s" ""'
+alias update-pacmanmirrorlist="sudo systemctl start reflector.service"
+alias clear-pacmancache="sudo systemctl start paccache.service"
+
+alias edit-visudo="sudo EDITOR=nano visudo"
+
+# Chris Titus Tech's Linux Utility
+alias LinUtil="cd /tmp; curl -fsSL https://www.christitus.com/linux | sh; cd"
+alias LinUtilRoot="cd /tmp; curl -fsSL https://www.christitus.com/linux | sudo sh; cd"
+
+# System power options
+alias shutdown="systemctl poweroff"
+alias reboot="systemctl reboot"
+alias suspend="systemctl suspend"
+alias hibernate="systemctl hibernate"
+
+# Lock screen alias
+alias lock-screen="loginctl lock-session"
+
+# Log out alias
+alias log-out="loginctl terminate-user $USER"
+
+alias reload-bash=". ~/.bashrc; clear; fastfetch"
+
+# Alacritty configuration
+alias edit-alacritty="nano ~/.config/alacritty/alacritty.toml"
+
+# auto-cpufreq
+alias edit-autocpufreq="sudo nano /etc/auto-cpufreq.conf; sudo systemctl restart auto-cpufreq.service"
+
+
+
+
+
+# -----------------------------------------------------
+# Applications
+# -----------------------------------------------------
+# Alias for accessing the Arch Wiki offline in a terminal (suggestion by Mental Outlaw: https://www.youtube.com/watch?v=Dg2Lek-xN70&t=324s)
+# Remember to install wikiman and arch-wiki-docs (or arch-wiki-lite)
+alias archwiki="wikiman -s arch"
+
+# yt-dlp aliases
+alias ytdlp-audio="yt-dlp --extract-audio --audio-format mp3 --embed-thumbnail --audio-quality 0 --embed-metadata -o '/tmp/%(title)s.%(ext)s'"
+
+# zotify aliases
+# Remember to install python-pipx
+#alias zotify-download="zotify --config=$HOME/.config/zotify/config.json" # senha nova: !&9caiorotunno
+alias edit-zotify="nano $HOME/.config/zotify/config.json" # pipx install git+https://zotify.xyz/zotify/zotify@v1.0-dev OR pipx install git+https://github.com/yodaluca23/zotify.git@v1.0-dev
+
+alias which-filetype="xdg-mime query filetype"
+alias edit-defaultapplications="sudo nano /usr/local/share/applications/defaults.list"
+
+# Quickly edit this file
+alias edit-alias="nano $HOME/.config/bashrc/20-aliases"
+
+
+
+
+
+# -----------------------------------------------------
+# MATLAB
+# -----------------------------------------------------
+
+# Aliases for configuring MATLAB launch commands - remember to check if the symbolic link exists at /usr/local/bin; if not, create it before running these (or edit the aliases themselves)
+
+# The aliases follow the instructions in these sections of the MATLAB article of the ArchWiki:
+# - https://wiki.archlinux.org/title/MATLAB#OpenGL_acceleration ---> Remember to create the java.opts file, if needed;
+# - https://wiki.archlinux.org/title/MATLAB#Running_on_Wayland
+# - https://wiki.archlinux.org/title/MATLAB#Desktop_entry
+
+alias matlab="env LD_PRELOAD=/usr/lib/libstdc++.so LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/ QT_QPA_PLATFORM=xcb /usr/local/bin/matlab -useStartupFolderPref"
+
+
+
+# The alias below has extra steps, documented in the following links:
+# - https://wiki.archlinux.org/title/PRIME#Configure_applications_to_render_using_GPU
+# - https://download.nvidia.com/XFree86/Linux-x86_64/570.153.02/README/primerenderoffload.html <--- Chapter 35 (accessed June 3rd, 2025; go to https://download.nvidia.com/XFree86/Linux-x86_64/ and navigate the tree to the latest version of the docs, or the one matching your driver's version)
+
+# Only enable this alias if the dGPU is active, so MATLAB can benefit from extra performance
+if [[ "$LIBVA_DRIVER_NAME" = nvidia ]] && [[ "$VDPAU_DRIVER" = nvidia ]]; then
+
+    alias MATLAB="env LD_PRELOAD=/usr/lib/libstdc++.so LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/ QT_QPA_PLATFORM=xcb __NV_PRIME_RENDER_OFFLOAD=1 __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0 __GLX_VENDOR_LIBRARY_NAME=nvidia prime-run /usr/local/bin/matlab -useStartupFolderPref -nosoftwareopengl"
+
+fi
+
+# Remember to install the packages mentioned in the sections linked above!
+# Also also in this section, if you have a Nvidia GPU: https://wiki.archlinux.org/title/MATLAB#GPU_computing
+
+
+
+
+
+# -----------------------------------------------------
+# Formatting and Repairing
+# -----------------------------------------------------
+
+# Reformat my USB flash drives (uses exfatprogs, install it if not already present) (inform the drive after the alias, e.g. /dev/sda) (you can specify a label with: -L <label>)
+# More details here: https://man.archlinux.org/man/mkfs.exfat.8
+
+alias reformat-usb128G="sudo mkfs.exfat -b 16M -c 128K -v"
+
+alias reformat-usb32G="sudo mkfs.exfat -b 4M -c 32K -v"
+
+
+# Repairing my USB flash drives (uses exfatprogs, install it if not already present) (inform the partition after the alias, e.g. /dev/sda1)
+alias repair-exfat="sudo fsck.exfat -s -v -p"
