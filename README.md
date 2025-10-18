@@ -11,7 +11,7 @@ Many wallpapers were taken from [ElementaryOS' repository](https://github.com/el
 I also have a [subpage on the ArchWiki](https://wiki.archlinux.org/title/User:0xMrRobot), where I detail my personal setups for various devices.
 
 ## Installation Instructions
-These dotfiles can be installed with the Dotfiles Installer, also created by the ML4W project (available on Flathub). Click on the badge below to install the app.
+These dotfiles can be installed with the [Dotfiles Installer](https://github.com/mylinuxforwork/dotfiles-installer), also created by the ML4W project (available on Flathub). Click on the badge below to install the app.
 
 <a href="https://mylinuxforwork.github.io/dotfiles-installer/" target="_blank"><img src="https://mylinuxforwork.github.io/dotfiles-installer/dotfiles-installer-badge.png" style="border:0;margin-bottom:10px"></a>
 
