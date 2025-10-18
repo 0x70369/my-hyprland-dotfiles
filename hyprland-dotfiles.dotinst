@@ -99,7 +99,7 @@
 			"file":".config/hypr/conf/keyboard.conf",
 			"checkpoint":"Check",
 			"search":"kb_layout",
-			"value":"",
+			"value":"us",
 			"template":"    kb_layout = [VALUE]"
 		},
 		{
