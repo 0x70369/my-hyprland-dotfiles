@@ -18,7 +18,7 @@ These dotfiles can be installed with the [Dotfiles Installer](https://github.com
 Copy the following URL into the app:
 
 ```
-https://raw.githubusercontent.com/0x70369/my-hyprland-dotfiles/refs/heads/main/dev/hyprland-dotfiles.dotinst
+https://raw.githubusercontent.com/0x70369/my-hyprland-dotfiles/refs/heads/main/hyprland-dotfiles.dotinst
 ```
 
 A setup script is provided for Arch Linux only. For other distros, you will need to install all dependencies manually.
